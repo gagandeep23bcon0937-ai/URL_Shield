@@ -1,4 +1,4 @@
-# URL Shield - Flask Simple HTML Version
+# URL Phishing Detection System 
 At the heart of URL Shield is a custom-built, static heuristics analyzer. Instead of relying on simple, outdated blocklists, the algorithm actively scans the structural and semantic components of a URL in real-time to identify phishing indicators.
 No CSS or JavaScript files are used.
 
