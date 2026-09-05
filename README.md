@@ -1,17 +1,12 @@
 # URL Shield - Flask Simple HTML Version
-
-This is a simple Flask + Python phishing URL analyzer.
-
-It includes:
-
-- A plain HTML form to enter a URL
-- A Check URL button
-- A risk score output from 0 to 100
-- A safety verdict
-- A detailed check table
-- A JSON API route for testing
-
+At the heart of URL Shield is a custom-built, static heuristics analyzer. Instead of relying on simple, outdated blocklists, the algorithm actively scans the structural and semantic components of a URL in real-time to identify phishing indicators.
 No CSS or JavaScript files are used.
+
+## Key Security Checks:
+-Typosquatting Engine: Utilizes a mathematical sequence-matching algorithm to identify lookalike domains attempting to spoof trusted entities (e.g., detecting "g00gle.com") .
+-Obfuscation Detection: Flags URLs hiding behind raw IP addresses, suspicious URL shorteners, or deceptive @ symbol routing.
+-Linguistic Analysis: Scans the URL string for high-risk social engineering keywords (e.g., "secure", "verify", "wallet") and excessive subdomains.
+-Risk Scoring: Aggregates data from 10 distinct security checks into a cumulative 0-100 threat score, outputting a clear safety verdict alongside an itemized inspection breakdown.
 
 ## Project Structure
 
