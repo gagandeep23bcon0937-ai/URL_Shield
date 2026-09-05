@@ -3,7 +3,7 @@ At the heart of URL Shield is a custom-built, static heuristics analyzer. Instea
 No CSS or JavaScript files are used.
 
 ## Key Security Checks:
--Typosquatting Engine: Utilizes a mathematical sequence-matching algorithm to identify lookalike domains attempting to spoof trusted entities (e.g., detecting "g00gle.com") .
+-Typosquatting Engine: Utilizes a mathematical sequence-matching algorithm to identify lookalike domains attempting to spoof trusted entities (e.g., detecting "g00gle.com").
 -Obfuscation Detection: Flags URLs hiding behind raw IP addresses, suspicious URL shorteners, or deceptive @ symbol routing.
 -Linguistic Analysis: Scans the URL string for high-risk social engineering keywords (e.g., "secure", "verify", "wallet") and excessive subdomains.
 -Risk Scoring: Aggregates data from 10 distinct security checks into a cumulative 0-100 threat score, outputting a clear safety verdict alongside an itemized inspection breakdown.
