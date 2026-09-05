@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Shield - Simple</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .box {
+            background: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+        h1 { 
+            margin-top: 0;
+            color: #2c3e50; 
+        }
+        input[type="text"] {
+            width: 65%;
+            padding: 10px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #0056b3;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover { 
+            background-color: #004494; 
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th { 
+            background-color: #f8f9fa; 
+        }
+        /* Simple color coding for risk levels */
+        .safe { color: #10b981; font-weight: bold; }
+        .warning { color: #f59e0b; font-weight: bold; }
+        .danger { color: #ef4444; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div class="box">
+        <h1>URL Shield</h1>
+        <p>Enter a web address below to check it for phishing indicators.</p>
+        
+        <form method="POST" action="/">
+            <input type="text" id="url" name="url" value="{{ entered_url }}" placeholder="e.g. google.com" required>
+            <button type="submit">Analyze URL</button>
+        </form>
+    </div>
+
+    {% if result %}
+    <div class="box">
+        <h2>Analysis Results</h2>
+        <p><strong>Target:</strong> {{ result.normalized_url }}</p>
+        
+        <!-- Score and Verdict -->
+        <p><strong>Risk Score:</strong> {{ result.score }} / 100</p>
+        <p><strong>Verdict:</strong> 
+            <span class="{% if result.score <= 30 %}safe{% elif result.score <= 60 %}warning{% else %}danger{% endif %}">
+                {{ result.verdict }}
+            </span>
+        </p>
+        <p><em>{{ result.message }}</em></p>
+
+        <!-- Detailed Breakdown Table -->
+        <h3>Inspection Breakdown</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Security Check</th>
+                    <th>Status</th>
+                    <th>Penalty</th>
+                    <th>Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for check in result.checks %}
+                <tr>
+                    <td>{{ check.name }}</td>
+                    <td class="{% if check.status == 'Safe' %}safe{% elif check.status == 'Warning' %}warning{% else %}danger{% endif %}">
+                        {{ check.status }}
+                    </td>
+                    <td>+{{ check.score }}</td>
+                    <td>{{ check.details }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+
+</body>
+</html>
